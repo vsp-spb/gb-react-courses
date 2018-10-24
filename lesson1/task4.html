@@ -1,0 +1,17 @@
+<script>
+    function* generator() {
+        yield prompt('Enter your name');
+        yield prompt('Enter your age');
+        yield prompt('Enter your hobby');
+    }
+
+    let g = generator();
+
+    let data = {
+        name: g.next().value,
+        age: g.next().value,
+        hobby: g.next().value
+    };
+
+    console.log(data);
+</script>

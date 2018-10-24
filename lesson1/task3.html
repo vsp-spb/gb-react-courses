@@ -1,0 +1,89 @@
+<script>
+    class Human {
+        constructor(name, age, dateOfBirth) {
+            this.name = name;
+            this.age = age;
+            this.dateOfBirth = dateOfBirth;
+        }
+        displayInfo() {
+            return `Name: ${this.name} Age: ${this.age} DateOfBirth: ${this.dateOfBirth}`;
+        }
+    }
+
+    class Employee extends Human {
+        constructor(name, age, dateOfBirth, salary, department) {
+            super(name, age, dateOfBirth);
+            this.salary = salary;
+            this.department = department;
+        }
+        displayInfo() {
+            return super.displayInfo() + ` Salary: ${this.salary} Department: ${this.department}`;
+        }
+    }
+
+    class Manager extends Employee {
+        constructor(name, age, dateOfBirth, salary, department) {
+            super(name, age, dateOfBirth, salary, department);
+            this.developers = [];
+        }
+        add(developer) {
+            if (developer instanceof Developer) {
+                this.developers.push(developer);
+            }
+        }
+        remove(developer) {
+            if (developer instanceof Developer) {
+                this.developers.pop(developer);
+            }
+        }
+        displayInfo() {
+            return super.displayInfo() + ` Developers count: ${this.developers.length}`;
+        }
+    }
+
+    class Developer extends Employee {
+        constructor(name, age, dateOfBirth, salary, department, manager) {
+            super(name, age, dateOfBirth, salary, department);
+            if (this.manager != null && manager instanceof Manager) {
+                this.manager = manager;
+                this.manager.add(this);
+            }
+        }
+        displayInfo() {
+            return super.displayInfo() + ` Manager: ${this.manager != null ? this.manager.name : 'Unknown'}`;
+        }
+        setManager(newManager) {
+            if (this.manager != null) {
+                this.manager.remove(this);
+            }
+            if (newManager != null && newManager instanceof Manager) {
+                this.manager = newManager;
+                newManager.add(this);
+            }
+        }
+    }
+
+    let h = new Human('Bob', 22, '01.01.1970');
+    console.log(h.displayInfo());
+
+    let e = new Employee('Mark', 25, '02.02.1990', 200000, 'Department 23');
+    console.log(e.displayInfo());
+
+    let m = new Manager('Peter', 30, '06.08.1988', 300000, 'Department 12');
+    console.log(m.displayInfo());
+
+    let d = new Developer('Clark', 23, '15.09.1993', 150000, 'Department 32', null);
+    console.log(d.displayInfo());
+    d.setManager(m);
+    console.log(d.displayInfo());
+    console.log(m.displayInfo());
+
+    let d2 = new Developer('Clark2', 23, '15.09.1993', 150000, 'Department 32', m);
+    console.log(d2.displayInfo());
+    console.log(m.displayInfo());
+
+    d.setManager(null);
+    console.log(d.displayInfo());
+    console.log(d2.displayInfo());
+    console.log(m.displayInfo());
+</script>

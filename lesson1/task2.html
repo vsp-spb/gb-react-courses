@@ -1,0 +1,53 @@
+<script>
+    let calculateArea = function (type = null, input = null) {
+        if (type == null || typeof (type) !== 'string') {
+            return null;
+        } else if (input == null || typeof (input) !== 'object' || (input instanceof Array)) {
+            return null;
+        }
+        let result = {
+            figure: type,
+            input: input
+        };
+        let area = 0;
+
+        switch (type) {
+            case 'square':
+                if (("a" in input)) {
+                    area = input.a * input.a;
+                }
+                break;
+            case 'triangle':
+                if (("a" in input) && ("h" in input)) {
+                    area = 0.5 * input.a * input.h;
+                }
+                break;
+            case 'rectange':
+                if (("a" in input) && ("b" in input)) {
+                    area = input.a * input.b;
+                }
+                break;
+            case 'circle':
+                if (("r" in input)) {
+                    area = Math.PI + input.r * input.r;
+                }
+                break;
+        }
+
+        result.area = area;
+        return result;
+    }
+
+    console.log(calculateArea());
+    console.log(calculateArea(1, {}));
+    console.log(calculateArea('type', 'test'));
+    console.log(calculateArea('type', [21]));
+    console.log(calculateArea('square', { a: 2 }));
+    console.log(calculateArea('square', { b: 2 }));
+    console.log(calculateArea('triangle', { a: 3, h: 5 }));
+    console.log(calculateArea('triangle', { a: 3, c: 5 }));
+    console.log(calculateArea('rectange', { a: 2, b: 6 }));
+    console.log(calculateArea('rectange', { d: 2, f: 6 }));
+    console.log(calculateArea('circle', { r: 4 }));
+    console.log(calculateArea('circle', { q: 4 }));
+</script>

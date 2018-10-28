@@ -1,0 +1,24 @@
+<script>
+    let array = [];
+    for (let i = 0; i < 10; i++) {
+        array[i] = new Promise((resolve, reject) => {
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', `https://jsonplaceholder.typicode.com/users/${i + 1}`, true);
+            xhr.send();
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == XMLHttpRequest.DONE) {
+                    if (xhr.status == 200) {
+                        resolve(JSON.parse(xhr.responseText));
+                    } else {
+                        reject(xhr.statusText);
+                    }
+                }
+            }
+        });
+    }
+    Promise.all(array).then((result) => {
+        console.log(result);
+    }, (error) => {
+        console.log("Error: " + error);
+    })
+</script>

@@ -1,0 +1,15 @@
+<script>
+    let loop = function (times = 0, callback = null) {
+        if (callback != null && typeof (callback) === 'function') {
+            for (let i = 0; i < times; i++) {
+                callback();
+            }
+        }
+    }
+
+    loop(2, () => console.log('123'));
+    loop(2, ['dd']);
+    loop(3);
+    loop(0, () => console.log('456'));
+    loop(() => console.log('987'));
+</script>

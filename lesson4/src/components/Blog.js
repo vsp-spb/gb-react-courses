@@ -42,6 +42,36 @@ export default class Blog extends React.Component {
         let id = $(event.target).attr('data-id');
         self.deletePost(id);
       });
+
+      $('#addPostBtn').on('click', function(){
+        let title = $("#titleField").val();
+        let author = $("#authorField").val();
+        let text = $("#textField").val();
+
+        self.addPost(title, author, text);
+
+        $("#titleField").val('');
+        $("#authorField").val('');
+        $("#textField").val('');
+      });
+
+      alert("Welcome to the " + this.props.blogName);
+  }
+
+  addPost(title, author, text){
+    this.state.postItems.push({
+        id: this.randomInteger(0, 1000),
+        title: title,
+        author: author,
+        date: new Date(),
+        text: text,
+        href: "#",
+        likes: 0
+    });
+
+    this.setState({
+      postItems: this.state.postItems
+    });
   }
 
   deletePost(postId){
@@ -52,5 +82,11 @@ export default class Blog extends React.Component {
         postItems: this.state.postItems
       });
     }
+  }
+
+  randomInteger(min, max) {
+    var rand = min + Math.random() * (max + 1 - min);
+    rand = Math.floor(rand);
+    return rand;
   }
 }

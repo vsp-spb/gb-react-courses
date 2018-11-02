@@ -22,11 +22,13 @@ export default class Post extends React.Component {
           {this.props.isMain ? (
             <h1>{this.props.post.title}</h1>
           ) : (
-            <h2>{this.props.post.title}</h2>
+            <div>
+              <h2>{this.props.post.title}</h2>
+              <button type="button" className="close" aria-label="Close" data-id={this.props.post.id}>
+                &times;
+              </button>
+            </div>
           )}
-          <button type="button" className="close" aria-label="Close" data-id={this.props.post.id}>
-              &times;
-          </button>
         </div>
         <p className="font-italic">
           By {this.props.post.author} - {this.props.post.date.toDateString()}
@@ -38,7 +40,9 @@ export default class Post extends React.Component {
           </a>
           <span style={{float: 'right'}} onClick={this.onLikeClick.bind(this)}>
             <Octicon icon={Heart} size="medium" />
-            <span className="badge badge-light">{this.state.likes}</span>
+            {this.state.likes>0 &&
+              <span className="badge badge-light">{this.state.likes}</span>
+            }
           </span>
         </p>
       </div>

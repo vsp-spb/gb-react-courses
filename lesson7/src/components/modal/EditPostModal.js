@@ -52,10 +52,4 @@ class EditPostModal extends React.Component{
     }
 }
 
-function mapStateToProps(store){
-    return {
-        posts: store.posts.posts
-    };
-}
-
-export default connect(mapStateToProps)(EditPostModal);
+export default connect()(EditPostModal);

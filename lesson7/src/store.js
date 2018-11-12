@@ -6,12 +6,14 @@ import thunk from 'redux-thunk';
 
 import {postsReducer} from './reducers/postsReducer';
 import {usersReducer} from './reducers/usersReducer';
+import {commentsReducer} from './reducers/commentsReducer';
 
 const middleware = applyMiddleware(promise(), logger, thunk);
 
 const reducers = combineReducers({
     posts: postsReducer,
-    users: usersReducer
+    users: usersReducer,
+    comments: commentsReducer
 });
 
 const store = createStore(reducers, middleware);

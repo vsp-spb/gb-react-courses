@@ -1,6 +1,7 @@
 import React from 'react';
 import {getPosts} from '../actions/postsAction';
 import {getUsers} from '../actions/usersAction';
+import {getComments} from '../actions/commentsAction';
 import {connect} from 'react-redux';
 
 class Home extends React.Component{
@@ -21,6 +22,7 @@ class Home extends React.Component{
     componentDidMount(){
         this.props.dispatch(getPosts());
         this.props.dispatch(getUsers());
+        this.props.dispatch(getComments());
     }
 }
 

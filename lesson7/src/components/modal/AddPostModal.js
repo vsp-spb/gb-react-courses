@@ -5,6 +5,11 @@ import {connect} from 'react-redux';
 
 class AddPostModal extends React.Component{
     render(){
+
+        let options = this.props.users.map((user, index) => {
+            return <option value={user.id} key={index}>{user.name}</option>
+        });
+
         return (
             <div className="modal fade" id="addPostModal" tabIndex="-1" role="dialog" aria-labelledby="addPostModalLabel" aria-hidden="true">
                 <div className="modal-dialog" role="document">
@@ -27,7 +32,9 @@ class AddPostModal extends React.Component{
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor="addAuthorField">Author</label>
-                                    <input type="text" className="form-control" id="addAuthorField" />
+                                    <select className="form-control" id="addAuthorField">
+                                        {options}
+                                    </select>
                                 </div>
                             </form>
                         </div>
@@ -49,7 +56,7 @@ class AddPostModal extends React.Component{
             this.props.dispatch(addPost(title, body, author));
     
             $("#addTitleField").val('');
-            $("#addAuthorField").val('');
+            $("#addAuthorField").prop("selectedIndex", 0);
             $("#addBodyField").val('');
         });
     }
@@ -57,7 +64,7 @@ class AddPostModal extends React.Component{
 
 function mapStateToProps(store){
     return {
-        posts: store.posts.posts
+        users: store.users.users
     };
 }
 

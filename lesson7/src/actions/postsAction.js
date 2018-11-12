@@ -1,4 +1,4 @@
-import {GET_POSTS, ADD_POST, EDIT_POST, DELETE_POST} from '../constants/postsConstants';
+import {GET_POSTS, ADD_POST, EDIT_POST, DELETE_POST, GET_POST_BY_ID} from '../constants/postsConstants';
 import axios from 'axios';
 
 export function getPosts(){
@@ -25,6 +25,13 @@ export function editPost(postId, title, body){
 export function deletePost(postId){
     return {
         type: DELETE_POST,
+        payload: postId
+    };
+}
+
+export function getPostById(postId){
+    return {
+        type: GET_POST_BY_ID,
         payload: postId
     };
 }

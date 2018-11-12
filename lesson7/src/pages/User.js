@@ -1,34 +1,35 @@
 import React from 'react';
-import axios from "axios";
+import {getUserById} from '../actions/usersAction';
+import {connect} from 'react-redux';
 
-export default class User extends React.Component{
-    constructor(props){
-        super(props);
-        this.state = {
-            user: null
-        };
-
-        axios.get("https://jsonplaceholder.typicode.com/users/" + this.props.match.params.id).then(response => {
-            this.setState({ 
-                user: response.data
-            });
-        });
-    }
+class User extends React.Component{
     render(){
-        if (this.state.user === null) {
+        if (this.props.user === null) {
             return null;
         }
 
         return(
             <div>
-                <h1>{this.state.user.username}</h1>
-                <p>Name: {this.state.user.name}</p>
-                <p>Email: {this.state.user.email}</p>
-                <p>Phone: {this.state.user.phone}</p>
-                <p>Address: {this.state.user.address.city}, {this.state.user.address.street}, {this.state.user.address.suite}</p>
-                <p>Company: {this.state.user.company.name}</p>
-                <p>Website: {this.state.user.website}</p>
+                <h1>{this.props.user.username}</h1>
+                <p>Name: {this.props.user.name}</p>
+                <p>Email: {this.props.user.email}</p>
+                <p>Phone: {this.props.user.phone}</p>
+                <p>Address: {this.props.user.address.city}, {this.props.user.address.street}, {this.props.user.address.suite}</p>
+                <p>Company: {this.props.user.company.name}</p>
+                <p>Website: {this.props.user.website}</p>
             </div>
         );
     }
+
+    componentDidMount(){
+        this.props.dispatch(getUserById(this.props.match.params.id));
+    }
 }
+
+function mappropsToProps(store){
+    return {
+        user: store.users.user
+    };
+}
+
+export default connect(mappropsToProps)(User)

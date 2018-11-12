@@ -1,6 +1,9 @@
 import React from 'react';
+import {getPosts} from '../actions/postsAction';
+import {getUsers} from '../actions/usersAction';
+import {connect} from 'react-redux';
 
-export default class Home extends React.Component{
+class Home extends React.Component{
     render(){
         return(
             <div>
@@ -14,4 +17,11 @@ export default class Home extends React.Component{
             </div>
         );
     }
+
+    componentDidMount(){
+        this.props.dispatch(getPosts());
+        this.props.dispatch(getUsers());
+    }
 }
+
+export default connect()(Home)

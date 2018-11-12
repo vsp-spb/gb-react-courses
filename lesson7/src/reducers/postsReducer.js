@@ -3,13 +3,15 @@ import merge from 'lodash/merge';
 
 export function postsReducer(state = {
     posts: [],
-    is_loading: false
+    is_loading: false,
+    openedPost: null
 }, action) {
     switch (action.type) {
         case PostsConstants.GET_POSTS_PENDING:
             {
                 state = { ...state,
-                    is_loading: true
+                    is_loading: true,
+                    openedPost: null
                 };
                 break;
             }
@@ -17,7 +19,8 @@ export function postsReducer(state = {
             {
                 state = { ...state,
                     is_loading: false,
-                    posts: action.payload.data
+                    posts: action.payload.data,
+                    openedPost: null
                 };
                 break;
             }
@@ -61,6 +64,20 @@ export function postsReducer(state = {
                 if(index !== null){
                     state = merge({}, state);
                     state.posts[index] = {...state.posts[index], title: action.payload.title, body: action.payload.body}
+                }
+                break;
+            }
+        case PostsConstants.GET_POST_BY_ID:
+            {
+                let index = null;
+                state.posts.forEach((value, i) => {
+                    if (parseInt(value.id) === parseInt(action.payload)) {
+                        index = i;
+                    }
+                });
+                if(index !== null){
+                    state = merge({}, state);
+                    state.openedPost = {...state.posts[index]};
                 }
                 break;
             }

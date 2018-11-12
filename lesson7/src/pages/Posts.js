@@ -1,6 +1,5 @@
 import React from 'react';
 import PostList from '../components/PostList';
-import {getPosts} from '../actions/postsAction';
 import {connect} from 'react-redux';
 
 class Posts extends React.Component{
@@ -8,13 +7,7 @@ class Posts extends React.Component{
         if(this.props.is_loading){
             return <div>Loading data...</div>
         }
-        return(
-            <PostList posts={this.props.posts}/>
-        );
-    }
-
-    componentDidMount(){
-        this.props.dispatch(getPosts());
+        return <PostList posts={this.props.posts}/>;
     }
 }
 

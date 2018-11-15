@@ -28,20 +28,6 @@ export function usersReducer(state = {users: [], is_loading: false, user: null},
                 };
                 break;
             }
-        /*case UsersConstants.GET_USER_BY_ID:
-            {
-                let index = null;
-                state.users.forEach((value, i) => {
-                    if (parseInt(value.id) === parseInt(action.payload)) {
-                        index = i;
-                    }
-                });
-                if(index !== null){
-                    state = merge({}, state);
-                    state.user = {...state.users[index]};
-                }
-                break;
-            }*/
         case UsersConstants.GET_USER_BY_ID_PENDING:
             {
                 state = { ...state,
